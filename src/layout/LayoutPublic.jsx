@@ -1,15 +1,21 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const LayoutPublic = () => {
-  return (
-    <>
-     <Navbar/>
-      <main className="container">
-        <Outlet/>
-      </main>
-      <footer className="text-center">Footer</footer>
-    </>
-  );
+    const navigation = useNavigation();
+
+    return (
+        <div>
+            <Navbar />
+            <main className="container">
+                {navigation.state === "loading" && (
+                    <div className="alert alert-info my-5">Loading...</div>
+                )}
+                <Outlet />
+            </main>
+            <Footer/>
+        </div>
+    );
 };
 export default LayoutPublic;
